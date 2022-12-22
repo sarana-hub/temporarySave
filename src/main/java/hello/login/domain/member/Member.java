@@ -15,4 +15,6 @@ public class Member {
     private String name; //사용자 이름
     @NotEmpty
     private String password;
+    @NotEmpty
+    private String store; //매장 이름
 }

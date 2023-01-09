@@ -121,7 +121,6 @@ public class ItemController {
             return "items/editForm";
         }
 
-        //Item itemParam = new Item();
         Item itemParam = itemRepository.findById(itemId);
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());

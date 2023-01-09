@@ -2,6 +2,8 @@ package hello.login.domain.item;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Item {
 
@@ -9,6 +11,8 @@ public class Item {
     private String itemName;
     private Integer price;
     private Integer quantity;
+
+    private List<UploadFile> imageFiles;
 
     public Item() {
     }

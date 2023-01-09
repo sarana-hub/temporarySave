@@ -1,11 +1,15 @@
 package hello.login.web.item;
 
+import hello.login.domain.file.FileStore;
 import hello.login.domain.item.Item;
 import hello.login.domain.item.ItemRepository;
+import hello.login.domain.item.UploadFile;
 import hello.login.web.item.form.ItemSaveForm;
 import hello.login.web.item.form.ItemUpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Slf4j
@@ -22,6 +28,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemRepository itemRepository;
+    private final FileStore fileStore;
 
     @GetMapping
     public String items(Model model) {
@@ -47,7 +54,10 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form,
+                          BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+
+        List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
 
         //특정 필드 예외가 아닌 전체 예외
         if (form.getPrice() != null && form.getQuantity() != null) {
@@ -62,16 +72,23 @@ public class ItemController {
             return "items/addForm";
         }
 
-        //성공 로직
+        //성공 로직 //데이터베이스에 저장
         Item item = new Item();
         item.setItemName(form.getItemName());
         item.setPrice(form.getPrice());
         item.setQuantity(form.getQuantity());
+        item.setImageFiles(storeImageFiles);
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
         return "redirect:/items/{itemId}";
+    }
+
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+        return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
     @GetMapping("/{itemId}/edit")
@@ -82,7 +99,10 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form, BindingResult bindingResult) {
+    public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form,
+                       BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+
+        List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
 
         //특정 필드 예외가 아닌 전체 예외
         if (form.getPrice() != null && form.getQuantity() != null) {
@@ -101,7 +121,12 @@ public class ItemController {
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());
         itemParam.setQuantity(form.getQuantity());
+        if(!storeImageFiles.isEmpty()) {
+            itemParam.setImageFiles(storeImageFiles);
+        }
 
+        redirectAttributes.addAttribute("itemId", itemParam.getId());
+        redirectAttributes.addAttribute("status", true);
         itemRepository.update(itemId, itemParam);
         return "redirect:/items/{itemId}";
     }

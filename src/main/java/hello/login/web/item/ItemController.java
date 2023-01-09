@@ -23,14 +23,15 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/items")
+//@RequestMapping("/items")
 @RequiredArgsConstructor
 public class ItemController {
 
     private final ItemRepository itemRepository;
     private final FileStore fileStore;
 
-    @GetMapping
+    /** 상품 목록 */
+    @GetMapping("/items")
     public String items(Model model) {
         //로그인 여부 체크
         List<Item> items = itemRepository.findAll();
@@ -38,7 +39,8 @@ public class ItemController {
         return "items/items";
     }
 
-    @GetMapping("/{itemId}")
+    /** 상품 상세(조회) */
+    @GetMapping("/items/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         //로그인 여부 체크
         Item item = itemRepository.findById(itemId);
@@ -46,14 +48,15 @@ public class ItemController {
         return "items/item";
     }
 
-    @GetMapping("/add")
+    /** 상품 등록 폼 */
+    @GetMapping("/items/add")
     public String addForm(Model model) {
         //로그인 여부 체크
         model.addAttribute("item", new Item());
         return "items/addForm";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/items/add")
     public String addItem(@Validated @ModelAttribute("item") ItemSaveForm form,
                           BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
@@ -91,14 +94,15 @@ public class ItemController {
         return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
-    @GetMapping("/{itemId}/edit")
+    /** 상품 수정 */
+    @GetMapping("/items/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "items/editForm";
     }
 
-    @PostMapping("/{itemId}/edit")
+    @PostMapping("/items/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @Validated @ModelAttribute("item") ItemUpdateForm form,
                        BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
@@ -117,17 +121,19 @@ public class ItemController {
             return "items/editForm";
         }
 
-        Item itemParam = new Item();
+        //Item itemParam = new Item();
+        Item itemParam = itemRepository.findById(itemId);
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());
         itemParam.setQuantity(form.getQuantity());
         if(!storeImageFiles.isEmpty()) {
             itemParam.setImageFiles(storeImageFiles);
         }
+        itemRepository.update(itemId, itemParam);
 
         redirectAttributes.addAttribute("itemId", itemParam.getId());
         redirectAttributes.addAttribute("status", true);
-        itemRepository.update(itemId, itemParam);
+
         return "redirect:/items/{itemId}";
     }
 

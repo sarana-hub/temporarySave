@@ -1,5 +1,6 @@
-package hello.login.domain.member;
+package hello.login.repository;
 
+import hello.login.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -7,7 +8,8 @@ import java.util.*;
 
 @Slf4j
 @Repository
-public class CustomerRepository {
+public class MemberRepository {
+
     private static Map<Long, Member> store = new HashMap<>(); //static 사용
     private static long sequence = 0L;//static 사용
 

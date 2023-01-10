@@ -1,35 +1,36 @@
-package hello.login.domain.member;
+package hello.login.repository;
 
+import hello.login.domain.member.CustomerMember;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @Slf4j
 @Repository
-public class MemberRepository {
-
-    private static Map<Long, Member> store = new HashMap<>(); //static 사용
+public class CustomerRepository {
+    private static Map<Long, CustomerMember> store = new HashMap<>(); //static 사용
     private static long sequence = 0L;//static 사용
 
-    public Member save(Member member) {
+    public CustomerMember save(@Valid CustomerMember member) {
         member.setId(++sequence);
         log.info("save: member={}", member);
         store.put(member.getId(), member);
         return member;
     }
 
-    public Member findById(Long id) {
+    public CustomerMember findById(Long id) {
         return store.get(id);
     }
 
-    public Optional<Member> findByLoginId(String loginId) {
+    public Optional<CustomerMember> findByLoginId(String loginId) {
         return findAll().stream()
                 .filter(m -> m.getLoginId().equals(loginId))
                 .findFirst();
     }
 
-    public List<Member> findAll() {
+    public List<CustomerMember> findAll() {
         return new ArrayList<>(store.values());
     }
 

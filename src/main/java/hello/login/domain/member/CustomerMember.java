@@ -14,4 +14,6 @@ public class CustomerMember {
     private String name; //사용자 이름
     @NotEmpty
     private String password;
+    @NotEmpty
+    private String phone; //전화번호
 }

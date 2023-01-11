@@ -1,5 +1,6 @@
 package hello.login;
 
+import hello.login.web.argumentresolver.LoginCustomerArgumentResolver;
 import hello.login.web.argumentresolver.LoginMemberArgumentResolver;
 import hello.login.web.filter.LogFilter;
 import hello.login.web.filter.LoginCheckFilter;
@@ -22,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginMemberArgumentResolver());
+        resolvers.add(new LoginCustomerArgumentResolver());
     }
 
     @Override

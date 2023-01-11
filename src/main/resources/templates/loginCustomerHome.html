@@ -12,7 +12,7 @@
         <h2>홈 화면</h2>
     </div>
 
-    <h4 class="mb-3" th:text="|로그인: ${member.name} 고객님|">로그인 사용자 이름</h4>
+    <h4 class="mb-3" th:text="|로그인: ${customer.name} 고객님|">로그인 사용자 이름</h4>
 
     <hr class="my-4">
 
@@ -22,6 +22,8 @@
                     th:onclick="|location.href='@{/order}'|">
                 쇼핑하기?
             </button>
+        </div>
+        <div class="col">
             <button class="w-100 btn btn-secondary btn-lg" type="button"
                     th:onclick="|location.href='@{/orders}'|">
                 주문내역

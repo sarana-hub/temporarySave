@@ -1,5 +1,6 @@
 package hello.login.web.argumentresolver;
 
+import hello.login.domain.member.CustomerMember;
 import hello.login.domain.member.Member;
 import hello.login.web.SessionConst;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class LoginCustomerArgumentResolver implements HandlerMethodArgumentResol
         log.info("supportsParameter 실행");
 
         boolean hasLoginAnnotation = parameter.hasParameterAnnotation(Login.class);
-        boolean hasMemberType = Member.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasMemberType = CustomerMember.class.isAssignableFrom(parameter.getParameterType());
 
         return hasLoginAnnotation && hasMemberType;
     }

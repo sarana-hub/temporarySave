@@ -1,6 +1,7 @@
 package hello.login.web.login;
 
 import hello.login.domain.login.LoginService;
+import hello.login.domain.member.CustomerMember;
 import hello.login.domain.member.Member;
 import hello.login.web.SessionConst;
 import hello.login.web.session.SessionManager;
@@ -43,8 +44,9 @@ public class LoginController {
         }
 
         Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
+        CustomerMember loginCustomer=loginService.login2(form.getLoginId(), form.getPassword());
 
-        if (loginMember == null) {
+        if (loginMember == null &&loginCustomer==null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
             return "login/loginForm";
         }
@@ -54,6 +56,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        session.setAttribute(SessionConst.LOGIN_CUSTOMER, loginMember);
 
         return "redirect:" + redirectURL;
 

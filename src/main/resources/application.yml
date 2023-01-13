@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/jpashop
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      #이 옵션은 애플리케이션 실행 시점에 테이블을 drop하고, 다시 생성
+
+    properties:
+      hibernate:
+       #show_sql: true    옵션은 System.out에 하이버네이트 실행 SQL을 남긴다
+        format_sql: true
+
+logging.level:
+  org.hibernate.SQL: debug
+  #이 옵션은 logger를 통해 하이버네이트 실행 SQL을 남긴다
+
+  org.hibernate.type: trace
+  #이 옵션은 SQL 실행 파라미터를 로그로 남긴다
+
+
+##  yml 파일은 띄어쓰기 2칸으로 계층을 만든다 (스페이스 2칸 필수)

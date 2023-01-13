@@ -21,8 +21,8 @@ public class TestDataInit {
      */
     @PostConstruct
     public void init() {
-        itemRepository.save(new Item("itemA", 10000, 10));
-        itemRepository.save(new Item("itemB", 20000, 20));
+        //itemRepository.save(new Item("itemA", 10000, 10));
+        //itemRepository.save(new Item("itemB", 20000, 20));
 
         Member member = new Member();
         member.setLoginId("test");

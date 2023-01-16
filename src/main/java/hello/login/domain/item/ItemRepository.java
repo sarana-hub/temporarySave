@@ -1,4 +1,4 @@
-package hello.login.repository;
+package hello.login.domain.item;
 
 import hello.login.domain.item.Item;
 import org.springframework.stereotype.Repository;

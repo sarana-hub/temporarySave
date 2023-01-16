@@ -1,4 +1,4 @@
-package hello.login.repository;
+package hello.login.domain.member;
 
 import hello.login.domain.member.Member;
 import lombok.extern.slf4j.Slf4j;

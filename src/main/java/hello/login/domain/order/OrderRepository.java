@@ -1,4 +1,4 @@
-package hello.login.repository;
+package hello.login.domain.order;
 
 import hello.login.domain.order.Order;
 import hello.login.domain.order.OrderSearch;

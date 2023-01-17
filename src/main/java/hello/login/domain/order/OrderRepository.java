@@ -29,6 +29,17 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
+    public List<Order> findAll() {
+        List<Order> orders = em.createQuery("select o from Order o", Order.class).getResultList();
+        return orders;
+    }
+
+    public List<Order> findOrderByMemberId(Long memberId) {
+
+        return em.createQuery("select o from Order o join o.member m where m.id=:memberId",Order.class)
+                .setParameter("memberId", memberId).getResultList();
+    }
+
 
     //주문 검색 기능      //검색 조건에 동적으로 쿼리를 생성해서 주문 엔티티를 조회
 

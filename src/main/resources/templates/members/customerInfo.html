@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>회원정보</h2>
+    </div>
+
+    <h2 th:if="${param.status}" th:text="'수정 완료'"></h2>
+
+    <form action="" th:action th:object="${customer}" method="post">
+
+    <div>
+        <p th:text="|회원 명 : ${customer.name}|">name</p>
+    </div>
+    <div>
+        <p th:text="|전화번호 : ${customer.phone}|">phone number</p>
+    </div>
+<!--
+<form action="/members/address/editForm" method="post">
+    <input type="hidden" name="phone" th:value="${customer.phone}">
+    <button type="submit">전화번호 수정</button>
+</form>-->
+<button type="button" onclick="location.href='/'">목록으로</button>
+
+</form>
+
+</div> <!-- /container -->
+</body>
+</html>

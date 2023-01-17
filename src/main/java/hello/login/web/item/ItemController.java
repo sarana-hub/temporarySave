@@ -2,7 +2,7 @@ package hello.login.web.item;
 
 import hello.login.domain.file.FileStore;
 import hello.login.domain.item.Item;
-import hello.login.repository.ItemRepository;
+import hello.login.domain.item.ItemRepository;
 import hello.login.domain.item.UploadFile;
 import hello.login.web.item.form.ItemSaveForm;
 import hello.login.web.item.form.ItemUpdateForm;
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -30,7 +31,9 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final FileStore fileStore;
 
-    /** 상품 목록 */
+
+
+    /** member-상품 목록 */
     @GetMapping("/items")
     public String items(Model model) {
         //로그인 여부 체크
@@ -39,7 +42,7 @@ public class ItemController {
         return "items/items";
     }
 
-    /** 상품 상세(조회) */
+    /** member-상품 상세(조회) */
     @GetMapping("/items/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         //로그인 여부 체크

@@ -1,5 +1,6 @@
 package hello.login.domain.order;
 
+import hello.login.domain.member.CustomerMember;
 import hello.login.domain.member.Member;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +22,8 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;  //주문 회원
+    @JoinColumn(name = "customer_id")
+    private CustomerMember customer;  //주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems=new ArrayList<>();
@@ -40,9 +41,9 @@ public class Order {
 
 
     //==연관관계 메서드==//
-    public void setMember(Member member) {
-        this.member = member;
-        member.getOrders().add(this);
+    public void setMember(CustomerMember customer) {
+        this.customer = customer;
+        customer.getOrders().add(this);
     }
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
@@ -56,10 +57,10 @@ public class Order {
 
     // ==생성 메서드==//
      // 주문 엔티티를 생성할 때 사용
-    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    public static Order createOrder(CustomerMember customer, Delivery delivery, OrderItem... orderItems) {
         //OrderItem을 리스트로(여러개) 넘김
         Order order = new Order();
-        order.setMember(member);
+        order.setMember(customer);
         order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);

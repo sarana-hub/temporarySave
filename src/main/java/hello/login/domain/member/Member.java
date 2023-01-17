@@ -15,11 +15,12 @@ import java.util.List;
 //@Data
 public class Member {
 
-    private Long id;
-
     @Id
     @GeneratedValue
     @Column(name = "member_id")
+    private Long id;
+
+
     //@NotEmpty
     private String loginId; //로그인 ID
 
@@ -29,7 +30,4 @@ public class Member {
     private String password;
     @NotEmpty
     private String store; //매장 이름
-
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
 }

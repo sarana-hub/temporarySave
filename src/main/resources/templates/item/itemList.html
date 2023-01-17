@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2 th:text="#{page.items}">상품 목록</h2>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{label.item.imageFiles}">이미지</th>
+                <th th:text="#{label.item.id}">id</th>
+                <th th:text="#{label.item.itemName}">상품명</th>
+                <th th:text="#{label.item.price}">가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td>
+                    <img th:each="imageFile : ${item.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|"
+                         width="100" height="100"/>
+                </td>
+                <td><a href="item.html" th:href="@{/itemList/{itemId}(itemId=${item.id})}" th:text="${item.id}">id</a></td>
+                <td th:text="${item.itemName}">상품명</a></td>
+                <td th:text="${item.price}">10000</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>

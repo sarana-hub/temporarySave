@@ -1,6 +1,5 @@
 package hello.login.domain.item;
 
-import hello.login.domain.item.Item;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -30,6 +29,7 @@ public class ItemRepository {
 
     public void update(Long itemId, Item updateParam) {
         Item findItem = findById(itemId);
+        findItem.setShop(updateParam.getShop());
         findItem.setItemName(updateParam.getItemName());
         findItem.setPrice(updateParam.getPrice());
         findItem.setQuantity(updateParam.getQuantity());

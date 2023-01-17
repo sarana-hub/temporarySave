@@ -23,6 +23,9 @@
     </div>
 
     <div>
+        <p th:text="|매장명 : ${item.shop}|">item shop</p>
+    </div>
+    <div>
         <p th:text="|아이템 ID : ${item.id}|">item id</p>
     </div>
     <div>
@@ -35,21 +38,30 @@
         <p th:text="|잔여 수량 : ${{item.quantity}} 개|">item quantity</p>
     </div>
 
-    <button type="button" onclick="location.href='/itemList'">목록으로</button>
-    <!--<button class="w-100 btn btn-secondary btn-lg"
-            onclick="location.href='itemList.html'"
-            th:onclick="|location.href='@{/itemList}'|"
-            type="button" th:text="#{button.cancel}">목록으로</button>-->
-
     <hr class="my-4">
 
-    <!--주문-->
-    <form action="/orderList/add" method="post">
-        <input type="hidden" name="itemId" th:value="${item.id}">
-        <label for="count">수량 : </label>
-        <input type="number" id="count" name="count">
-        <button class="w-100 btn btn-secondary btn-lg" type="button">주문하기</button>
-    </form>
+    <div class="row">
+        <div class="col">
+            <!--주문-->
+            <form action="/orderList/add" method="post">
+                <input type="hidden" name="itemId" th:value="${item.id}">
+                <label for="count">수량 : </label>
+                <input type="number" id="count" name="count">
+                <button type="button">주문하기</button>
+            </form>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='itemList.html'"
+                    th:onclick="|location.href='@{/itemList}'|"
+                    type="button" th:text="#{button.cancel}">목록으로</button>
+        </div>
+    </div>
+
+
 
 </div> <!-- /container -->
 </body>

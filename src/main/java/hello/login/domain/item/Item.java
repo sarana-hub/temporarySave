@@ -2,8 +2,6 @@ package hello.login.domain.item;
 
 import hello.login.exception.NotEnoughStockException;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +22,8 @@ public class Item {
     private String itemName;
     private Integer price;
     private Integer quantity;
+
+    private String shop; //매장명
 
     @OneToMany //(mappedBy = "items", cascade = CascadeType.ALL)
     private List<UploadFile> imageFiles=new ArrayList<>();

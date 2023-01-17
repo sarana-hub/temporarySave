@@ -1,9 +1,11 @@
 package hello.login;
 
 import hello.login.domain.item.Item;
-import hello.login.repository.ItemRepository;
+import hello.login.domain.item.ItemRepository;
+import hello.login.domain.member.CustomerMember;
+import hello.login.domain.member.CustomerRepository;
 import hello.login.domain.member.Member;
-import hello.login.repository.MemberRepository;
+import hello.login.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ public class TestDataInit {
 
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
+    private final CustomerRepository customerRepository;
 
     /**
      * 테스트용 데이터 추가
@@ -28,9 +31,13 @@ public class TestDataInit {
         member.setLoginId("test");
         member.setPassword("test!");
         member.setName("테스터");
-
         memberRepository.save(member);
 
+        CustomerMember customer=new CustomerMember();
+        customer.setLoginId("t");
+        customer.setPassword("t!");
+        customer.setName("test");
+        customerRepository.save(customer);
     }
 
 }

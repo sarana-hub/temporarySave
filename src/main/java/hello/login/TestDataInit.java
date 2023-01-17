@@ -28,14 +28,14 @@ public class TestDataInit {
         //itemRepository.save(new Item("itemB", 20000, 20));
 
         Member member = new Member();
-        member.setLoginId("test");
-        member.setPassword("test!");
+        member.setLoginId("t");
+        member.setPassword("t");
         member.setName("테스터");
         memberRepository.save(member);
 
         CustomerMember customer=new CustomerMember();
-        customer.setLoginId("t");
-        customer.setPassword("t!");
+        customer.setLoginId("tt");
+        customer.setPassword("tt");
         customer.setName("test");
         customerRepository.save(customer);
     }

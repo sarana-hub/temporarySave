@@ -19,16 +19,24 @@
     <div class="row">
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg" type="button"
-                    th:onclick="|location.href='@{/order}'|">
-                쇼핑하기?
+                    th:onclick="|location.href='@{/customers/info}'|">
+                개인정보
+            </button>
+        </div>
+
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" type="button"
+                    th:onclick="|location.href='@{/itemList}'|">
+                상품목록
             </button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg" type="button"
-                    th:onclick="|location.href='@{/orders}'|">
-                주문내역
+                    th:onclick="|location.href='@{/orderList}'|">
+                주문목록
             </button>
         </div>
+
         <div class="col">
             <form th:action="@{/logout}" method="post">
                 <button class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">

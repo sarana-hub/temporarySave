@@ -2,15 +2,14 @@ package hello.login.web;
 
 import hello.login.domain.member.CustomerMember;
 import hello.login.domain.member.Member;
-import hello.login.repository.CustomerRepository;
-import hello.login.repository.MemberRepository;
+import hello.login.domain.member.CustomerRepository;
+import hello.login.domain.member.MemberRepository;
 import hello.login.web.argumentresolver.Login;
 import hello.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -29,11 +28,11 @@ public class HomeController {
 
         if(loginMember != null) {
             model.addAttribute("member", loginMember);
-            return "loginHome";
+            return "login/loginHome";
         }
         else if (loginCustomer != null) {
             model.addAttribute("customer", loginCustomer);
-            return "loginCustomerHome";
+            return "login/loginCustomerHome";
         }
         else {
             return "home";

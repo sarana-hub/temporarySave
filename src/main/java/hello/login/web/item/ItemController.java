@@ -31,8 +31,6 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final FileStore fileStore;
 
-
-
     /** member-상품 목록 */
     @GetMapping("/items")
     public String items(Model model) {
@@ -80,6 +78,7 @@ public class ItemController {
 
         //성공 로직 //데이터베이스에 저장
         Item item = new Item();
+        item.setShop(form.getShop());
         item.setItemName(form.getItemName());
         item.setPrice(form.getPrice());
         item.setQuantity(form.getQuantity());
@@ -125,6 +124,7 @@ public class ItemController {
         }
 
         Item itemParam = itemRepository.findById(itemId);
+        itemParam.setShop(form.getShop());
         itemParam.setItemName(form.getItemName());
         itemParam.setPrice(form.getPrice());
         itemParam.setQuantity(form.getQuantity());

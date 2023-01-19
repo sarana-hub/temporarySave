@@ -32,6 +32,22 @@
             <label for="id" th:text="#{label.item.id}">상품 ID</label>
             <input type="text" id="id" th:field="*{id}" class="form-control" readonly>
         </div>
+
+        <div>
+            <label for="shop">매장명</label>
+            <!--<select name="" id="member" class="form-control">
+                <option value="shop">회원선택</option>
+                <option th:each="member : ${members}"
+                        th:value="${member.id}"
+                        th:text="${member.name}" />
+            </select>-->
+            <input type="text" id="shop" th:field="*{shop}"
+                   th:errorclass="field-error" class="form-control" placeholder="매장명을 입력하세요">
+            <div class="field-error" th:errors="*{shop}">
+                매장명 오류
+            </div>
+        </div>
+
         <div>
             <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
             <input type="text" id="itemName" th:field="*{itemName}"

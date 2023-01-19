@@ -28,6 +28,7 @@
             <tr>
                 <th th:text="#{label.item.imageFiles}">이미지</th>
                 <th th:text="#{label.item.id}">ID</th>
+                <th th:text="#{label.item.shop}">매장명</th>
                 <th th:text="#{label.item.itemName}">상품명</th>
                 <th th:text="#{label.item.price}">가격</th>
                 <th th:text="#{label.item.quantity}">수량</th>
@@ -40,6 +41,7 @@
                          width="100" height="100"/>
                 </td>
                 <td><a href="item.html" th:href="@{/items/{itemId}(itemId=${item.id})}" th:text="${item.id}">회원id</a></td>
+                <td th:text="${item.shop}">매장명</a></td>
                 <td><a href="item.html" th:href="@{|/items/${item.id}|}" th:text="${item.itemName}">상품명</a></td>
                 <td th:text="${item.price}">10000</td>
                 <td th:text="${item.quantity}">10</td>

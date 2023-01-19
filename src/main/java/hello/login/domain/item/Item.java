@@ -1,7 +1,10 @@
 package hello.login.domain.item;
 
+import hello.login.domain.member.Member;
 import hello.login.exception.NotEnoughStockException;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +16,6 @@ import java.util.List;
 //@Getter @Setter
 @Data
 public class Item {
-
     @Id
     @GeneratedValue
     @Column(name = "item_id")
@@ -31,9 +33,7 @@ public class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<Category>();
 
-    /*public Item() {
-    }
-
+    /*
     public Item(String itemName, Integer price, Integer quantity) {
         this.itemName = itemName;
         this.price = price;

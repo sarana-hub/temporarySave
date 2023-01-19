@@ -30,6 +30,10 @@
         <input type="text" id="itemId" name="itemId" class="form-control" value="1" th:value="${item.id}" readonly>
     </div>
     <div>
+        <label for="shop">매장명</label>
+        <input type="text" id="shop" name="shop" class="form-control" value="카페" th:value="${item.shop}" readonly>
+    </div>
+    <div>
         <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
         <input type="text" id="itemName" name="itemName" class="form-control" value="상품A" th:value="${item.itemName}" readonly>
     </div>

@@ -15,6 +15,9 @@ public class ItemSaveForm {
     @NotBlank
     private String itemName;
 
+    @NotBlank
+    private String shop; //매장명
+
     @NotNull
     @Range(min = 1000, max = 1000000)
     private Integer price;
@@ -24,4 +27,5 @@ public class ItemSaveForm {
     private Integer quantity;
 
     private List<MultipartFile> imageFiles;
+
 }

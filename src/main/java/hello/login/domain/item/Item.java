@@ -23,7 +23,7 @@ public class Item {
 
     private String itemName;
     private Integer price;
-    private Integer quantity;
+    private Integer quantity; //재고수량
 
     private String shop; //매장명
 
@@ -41,14 +41,14 @@ public class Item {
     }*/
 
     //==비즈니스 로직==//
-    public void addStock(int quantity) {    //stock 증가
-        this.quantity += quantity;     //파라미터로 넘어온 수만큼 재고를 늘린다
+    public void addStock(int q) {    //stock 증가
+        this.quantity += q;     //파라미터로 넘어온 수만큼 재고를 늘린다
     }
 
-    public void removeStock(int quantity) {     //stock 감소
-        int restStock = this.quantity - quantity;
+    public void removeStock(int count) {     //stock 감소
+        int restStock = this.quantity - count;
         if (restStock < 0) {
-            throw new NotEnoughStockException("need more stock");
+            throw new NotEnoughStockException("재고가 부족합니다");
         }
         this.quantity = restStock;
     }

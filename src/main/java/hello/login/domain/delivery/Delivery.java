@@ -1,8 +1,8 @@
-package hello.login.domain.order;
+package hello.login.domain.delivery;
 
+import hello.login.domain.order.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 

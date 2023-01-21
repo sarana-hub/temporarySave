@@ -1,4 +1,4 @@
-package hello.login.domain.order;
+package hello.login.domain.delivery;
 
 /**배송 상태*/
 

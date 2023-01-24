@@ -1,6 +1,6 @@
-package hello.login.domain.member;
+package hello.login.domain.customer;
 
-import hello.login.web.SessionConst;
+import hello.login.domain.login.SessionConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +23,13 @@ public class CustomerController {
 
     //@GetMapping("/customers/add")
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("customer") CustomerMember customerMember) {
+    public String addForm(@ModelAttribute("customer") Customer customerMember) {
         return "members/addCustomerForm";
     }
 
     //@PostMapping("/customers/add")
     @PostMapping("/add")
-    public String save(@Valid @ModelAttribute CustomerMember customerMember, BindingResult bindingResult) {
+    public String save(@Valid @ModelAttribute Customer customerMember, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "members/addCustomerForm";
         }
@@ -41,13 +41,13 @@ public class CustomerController {
     public String info(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Long customerId = (Long) session.getAttribute(SessionConst.LOGIN_CUSTOMER);
-        CustomerMember customer = customerRepository.findById(customerId);
+        Customer customer = customerRepository.findById(customerId);
         model.addAttribute("customer", customer);
 
         return "members/customerInfo";
     }
 
-    @PostMapping("/phone/editForm")
+    /*@PostMapping("/phone/editForm")
     public String editForm(String phone, Model model) {
         model.addAttribute("phone", phone);
         return "members/infoEditForm";
@@ -62,5 +62,5 @@ public class CustomerController {
         customer.editPhone(customer.getPhone());
 
         return "redirect:/members/customerInfo";
-    }
+    }*/
 }

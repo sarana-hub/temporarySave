@@ -1,4 +1,4 @@
-package hello.login.domain;
+package hello.login.domain.order;
 
 /**주문상태*/
 

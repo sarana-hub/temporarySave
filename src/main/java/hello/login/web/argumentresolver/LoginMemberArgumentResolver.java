@@ -1,7 +1,7 @@
 package hello.login.web.argumentresolver;
 
 import hello.login.domain.member.Member;
-import hello.login.web.SessionConst;
+import hello.login.domain.login.SessionConst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

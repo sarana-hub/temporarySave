@@ -1,10 +1,8 @@
-package hello.login.web.login;
+package hello.login.domain.login;
 
-import hello.login.domain.login.LoginService;
-import hello.login.domain.member.CustomerMember;
+import hello.login.domain.customer.Customer;
 import hello.login.domain.member.Member;
-import hello.login.web.SessionConst;
-import hello.login.web.session.SessionManager;
+import hello.login.web.login.LoginForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,7 +24,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
+    //private final SessionManager sessionManager;
 
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
@@ -35,16 +33,17 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult bindingResult,
-                          @RequestParam(defaultValue = "/") String redirectURL,
-                          HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute LoginForm form,
+                        BindingResult bindingResult,
+                        @RequestParam(defaultValue = "/") String redirectURL,
+                        HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
         }
 
         Member loginMember = loginService.login(form.getLoginId(), form.getPassword());
-        CustomerMember loginCustomer=loginService.login2(form.getLoginId(), form.getPassword());
+        Customer loginCustomer=loginService.login2(form.getLoginId(), form.getPassword());
 
         if (loginMember == null &&loginCustomer==null) {
             bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");

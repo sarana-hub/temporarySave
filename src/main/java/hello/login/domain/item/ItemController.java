@@ -1,4 +1,4 @@
-package hello.login.web.item;
+package hello.login.domain.item;
 
 import hello.login.domain.file.FileStore;
 import hello.login.domain.item.Item;
@@ -31,6 +31,25 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final FileStore fileStore;
 
+    /** customer-상품 목록 */
+    @GetMapping("/itemList")
+    public String itemList(Model model) {
+        //로그인 여부 체크
+        List<Item> items = itemRepository.findAll();
+        model.addAttribute("items", items);
+        return "item/itemList";
+    }
+    /**
+     * customer-상품 상세(조회)
+     */
+    @GetMapping("/itemList/{itemId}")
+    public String item2(@PathVariable long itemId, Model model) {
+        //로그인 여부 체크
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "item/item";
+    }
+
     /** member-상품 목록 */
     @GetMapping("/items")
     public String items(Model model) {
@@ -42,7 +61,7 @@ public class ItemController {
 
     /** member-상품 상세(조회) */
     @GetMapping("/items/{itemId}")
-    public String item(@PathVariable long itemId, Model model) {
+    public String item(@PathVariable Long itemId, Model model) {
         //로그인 여부 체크
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);

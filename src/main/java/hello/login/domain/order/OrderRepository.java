@@ -2,6 +2,7 @@ package hello.login.domain.order;
 
 import hello.login.domain.order.Order;
 import hello.login.domain.order.OrderSearch;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -15,18 +16,18 @@ import java.util.List;
 /**주문 리포지토리*/
 
 @Repository
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class OrderRepository {
 
-    //private final EntityManager em;
-    @PersistenceContext EntityManager em;
+    private final EntityManager em;
+    //@PersistenceContext EntityManager em;
 
     public void save(Order order) { //주문 엔티티를 저장
         em.persist(order);
     }
 
-    public Order findOne(Long id) { //주문 엔티티를 검색
-        return em.find(Order.class, id);
+    public Order findById(Long orderId) {
+        return em.find(Order.class, orderId);
     }
 
     public List<Order> findAll() {
@@ -34,19 +35,21 @@ public class OrderRepository {
         return orders;
     }
 
-    public List<Order> findOrderByMemberId(Long memberId) {
+    public List<Order> findOrderByMemberId(Long customerId) {
 
-        return em.createQuery("select o from Order o join o.member m where m.id=:memberId",Order.class)
-                .setParameter("memberId", memberId).getResultList();
+        return em.createQuery("select o from Order o join o.customer m where m.id=:customerId",Order.class)
+                .setParameter("customerId", customerId).getResultList();
     }
 
 
+    /* public Order findOne(Long id) { //주문 엔티티를 검색
+        return em.find(Order.class, id);
+    }*/
     //주문 검색 기능      //검색 조건에 동적으로 쿼리를 생성해서 주문 엔티티를 조회
-
     /*JPQL로 처리*/
-    public List<Order> findAllByString(OrderSearch orderSearch) {
+    /*public List<Order> findAllByString(OrderSearch orderSearch) {
         //language=JPAQL
-        String jpql = "select o From Order o join o.member m";
+        String jpql = "select o From Order o join o.customer m";
         boolean isFirstCondition = true;
         //주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
@@ -78,7 +81,7 @@ public class OrderRepository {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
         return query.getResultList();
-    }
+    }*/
 
     /*JPA Criteria로 처리*/
     /*public List<Order> findAllByCriteria(OrderSearch orderSearch) {

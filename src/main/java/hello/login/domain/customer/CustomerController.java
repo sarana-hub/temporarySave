@@ -1,6 +1,8 @@
 package hello.login.domain.customer;
 
 import hello.login.domain.login.SessionConst;
+import hello.login.web.customer.CustomerSaveForm;
+import hello.login.web.member.MemberSaveForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,54 +15,70 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    //@GetMapping("/customers/add")
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("customer") Customer customerMember) {
+    public String addForm(Model model) {
+        model.addAttribute("customer", new CustomerSaveForm());
         return "members/addCustomerForm";
     }
 
-    //@PostMapping("/customers/add")
     @PostMapping("/add")
-    public String save(@Valid @ModelAttribute Customer customerMember, BindingResult bindingResult) {
+    public String add(@Valid @ModelAttribute("customer") CustomerSaveForm form, BindingResult bindingResult) {
+        List<Customer> sameIdMember = customerService.findByLoginId(form.getLoginId());
+
+        if (!sameIdMember.isEmpty()) {
+            bindingResult.rejectValue("loginId","error.already","이미 존재하는 아이디 입니다.");
+        }
         if (bindingResult.hasErrors()) {
             return "members/addCustomerForm";
         }
-        customerRepository.save(customerMember);
+
+        Customer customer = new Customer(form.getLoginId(),form.getPassword(), form.getName(), form.getPhone());
+        customerService.save(customer);
+
         return "redirect:/";
     }
+
+    /*@PostMapping("/add")
+    public String save(@Valid @ModelAttribute Customer customer, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "members/addCustomerForm";
+        }
+        customerRepository.save(customer);
+        return "redirect:/";
+    }*/
 
     @GetMapping("/info")
     public String info(HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Long customerId = (Long) session.getAttribute(SessionConst.LOGIN_CUSTOMER);
-        Customer customer = customerRepository.findById(customerId);
+        Customer customer = customerService.findById(customerId);
         model.addAttribute("customer", customer);
 
         return "members/customerInfo";
     }
 
-    /*@PostMapping("/phone/editForm")
+    @PostMapping("/phone/editForm")
     public String editForm(String phone, Model model) {
         model.addAttribute("phone", phone);
         return "members/infoEditForm";
     }
 
     @PostMapping("/phone/edit")
-    public String edit(HttpServletRequest request) {
+    public String edit(String phone, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Long id = (Long) session.getAttribute(SessionConst.LOGIN_CUSTOMER);
+        Long customerId = (Long) session.getAttribute(SessionConst.LOGIN_CUSTOMER);
 
-        CustomerMember customer = customerRepository.findById(id);
-        customer.editPhone(customer.getPhone());
+        customerService.phoneEdit(customerId, phone);
 
         return "redirect:/members/customerInfo";
-    }*/
+    }
 }

@@ -1,9 +1,8 @@
 package hello.login;
 
-import hello.login.domain.item.Item;
 import hello.login.domain.item.ItemRepository;
-import hello.login.domain.member.CustomerMember;
-import hello.login.domain.member.CustomerRepository;
+import hello.login.domain.customer.Customer;
+import hello.login.domain.customer.CustomerRepository;
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,17 +26,17 @@ public class TestDataInit {
         //itemRepository.save(new Item("itemA", 10000, 10));
         //itemRepository.save(new Item("itemB", 20000, 20));
 
-        Member member = new Member();
+        /*Member member = new Member();
         member.setLoginId("t");
         member.setPassword("t");
         member.setName("테스터");
-        memberRepository.save(member);
+        memberRepository.save(member);*/
 
-        CustomerMember customer=new CustomerMember();
+        /*Customer customer=new Customer();
         customer.setLoginId("tt");
         customer.setPassword("tt");
         customer.setName("test");
-        customerRepository.save(customer);
+        customerRepository.save(customer);*/
     }
 
 }

@@ -1,6 +1,8 @@
-package hello.login.domain.login;
+package hello.login.web.login;
 
 import hello.login.domain.customer.Customer;
+import hello.login.domain.login.LoginService;
+import hello.login.domain.login.SessionConst;
 import hello.login.domain.member.Member;
 import hello.login.web.login.LoginForm;
 import lombok.RequiredArgsConstructor;

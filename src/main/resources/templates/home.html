@@ -12,15 +12,28 @@
         <h2>홈 화면</h2>
     </div>
 
-    <div>
-        <h2>로그인</h2>
-        <button type="button" onclick="location.href='/login'">로그인 페이지</button>
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" type="button"
+                    th:onclick="|location.href='@{/members/add}'|">
+                매장 회원가입
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" type="button"
+                    th:onclick="|location.href='@{/customers/add}'|">
+                고객 회원가입
+            </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'"
+                    th:onclick="|location.href='@{/login}'|" type="button">
+                로그인
+            </button>
+        </div>
     </div>
-    <div>
-        <h2>회원가입</h2>
-        <button type="button" onclick="location.href='/members/add'">매장 회원가입 페이지</button>
-        <button type="button" onclick="location.href='/customers/add'">고객 회원가입 페이지</button>
-    </div>
+
+    <hr class="my-4">
 
     <!--
     <div class="row">
